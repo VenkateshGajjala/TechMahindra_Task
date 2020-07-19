@@ -2,7 +2,7 @@
 //  detailsCell.swift
 //  TechMahindraTask
 //
-//  Created by Venkatesh on 18/07/20.
+//  Created by VijayaBhaskar on 18/07/20.
 //  Copyright © 2020 Venkatesh. All rights reserved.
 //
 
@@ -89,7 +89,8 @@ class detailsCell: UITableViewCell {
         imageVw.topAnchor.constraint(equalTo: cellHeaderView.topAnchor, constant:padding).isActive = true
         imageVw.widthAnchor.constraint(equalToConstant: imageWidth).isActive = true
         imageVw.heightAnchor.constraint(equalToConstant: imageWidth).isActive = true
-        imageVw.bottomAnchor.constraint(equalTo: cellHeaderView.bottomAnchor, constant: -padding).isActive = true
+//        imageVw.bottomAnchor.constraint(equalTo: cellHeaderView.bottomAnchor, constant: -padding).isActive = true
+        imageVw.bottomAnchor.constraint(lessThanOrEqualTo: cellHeaderView.bottomAnchor, constant: -20).isActive = true
         imageVw.contentMode = .scaleAspectFill
         imageVw.layer.cornerRadius = 5
         imageVw.layer.masksToBounds = true
@@ -105,7 +106,9 @@ class detailsCell: UITableViewCell {
         descriptionLbl.topAnchor.constraint(equalTo: titleLbl.bottomAnchor, constant: padding).isActive = true
         descriptionLbl.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
         descriptionLbl.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLbl.bottomAnchor.constraint(equalTo: imageVw.bottomAnchor, constant: 0).isActive = true
+//        descriptionLbl.bottomAnchor.constraint(equalTo: imageVw.bottomAnchor, constant: 0).isActive = true
+        
+        descriptionLbl.bottomAnchor.constraint(lessThanOrEqualTo: cellHeaderView.bottomAnchor, constant: -20).isActive = true
 
     }
 }
