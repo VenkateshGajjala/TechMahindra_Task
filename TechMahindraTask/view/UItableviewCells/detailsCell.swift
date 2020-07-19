@@ -68,7 +68,8 @@ class detailsCell: UITableViewCell {
         label.lineBreakMode = .byWordWrapping
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.backgroundColor = UIColor.red
+        label.backgroundColor = UIColor.clear
+        label.sizeToFit()
         return label
     }()
     
@@ -89,24 +90,22 @@ class detailsCell: UITableViewCell {
         imageVw.widthAnchor.constraint(equalToConstant: imageWidth).isActive = true
         imageVw.heightAnchor.constraint(equalToConstant: imageWidth).isActive = true
         imageVw.bottomAnchor.constraint(equalTo: cellHeaderView.bottomAnchor, constant: -padding).isActive = true
-        imageVw.contentMode = .scaleAspectFit
+        imageVw.contentMode = .scaleAspectFill
         imageVw.layer.cornerRadius = 5
         imageVw.layer.masksToBounds = true
-        
 //        //TITLE LABEL
         cellHeaderView.addSubview(titleLbl)
         titleLbl.leadingAnchor.constraint(equalTo: imageVw.trailingAnchor, constant:10).isActive = true
-        titleLbl.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 0).isActive = true
+        titleLbl.topAnchor.constraint(equalTo: imageVw.topAnchor, constant: 0).isActive = true
         titleLbl.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -10).isActive = true
         titleLbl.translatesAutoresizingMaskIntoConstraints = false
 //        //DESCRIPTION LABEL
         cellHeaderView.addSubview(descriptionLbl)
-        descriptionLbl.leadingAnchor.constraint(equalTo: imageVw.trailingAnchor, constant:10).isActive = true
+        descriptionLbl.leadingAnchor.constraint(equalTo: titleLbl.leadingAnchor, constant:0).isActive = true
         descriptionLbl.topAnchor.constraint(equalTo: titleLbl.bottomAnchor, constant: padding).isActive = true
         descriptionLbl.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
-
         descriptionLbl.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLbl.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -10).isActive = true
+        descriptionLbl.bottomAnchor.constraint(equalTo: imageVw.bottomAnchor, constant: 0).isActive = true
 
     }
 }

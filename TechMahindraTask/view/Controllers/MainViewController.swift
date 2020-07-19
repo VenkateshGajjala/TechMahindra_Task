@@ -17,21 +17,22 @@ class MainViewController: UIViewController {
     }()
     
     let viewModelFacts = FactsViewModel()
-    var safearea:UILayoutGuide!
     var refreshControl: UIRefreshControl?
     override func viewDidLoad() {
         super.viewDidLoad()
-        safearea = view.layoutMarginsGuide
         setUpUI()
-        setUpValues(isLoading: true)
         addRefreshControl()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setUpValues()
     }
 
     //MARK:- ADD REFRESH CONTROLLER
     func addRefreshControl() {
         refreshControl = UIRefreshControl()
-        let title = NSLocalizedString("Loading", comment: "Pull to refresh")
-        refreshControl!.attributedTitle = NSAttributedString(string: title)
+//        let title = NSLocalizedString("Loading", comment: "Pull to refresh")
+//        refreshControl!.attributedTitle = NSAttributedString(string: title)
         refreshControl?.tintColor = UIColor.lightGray
         refreshControl?.addTarget(self, action: #selector(refreshList), for: .valueChanged)
         tblView.addSubview(refreshControl!)
@@ -40,8 +41,9 @@ class MainViewController: UIViewController {
     //MARK:- REFRESH CONTROLLER ACTION METHOD
     @objc func refreshList() {
         refreshControl?.endRefreshing()
-        setUpValues(isLoading: false)
+        setUpValues()
     }
+    
     //MARK:- UITABLEVIEW CREATIONS
     func setUpUI() {
         self.view.addSubview(tblView)
@@ -52,6 +54,7 @@ class MainViewController: UIViewController {
             tblView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
             tblView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
         }
+        tblView.tableFooterView = UIView.init(frame: .zero)
         tblView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         tblView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         tblView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
@@ -66,18 +69,21 @@ class MainViewController: UIViewController {
         
     }
     
-    func setUpValues(isLoading:Bool){
-        if isLoading{
-            //        self.activityIndicatorView = ActivityIndicatorView(title: "Fetching...", center: self.view.center)
-            //        self.activityIndicatorView.startAnimating()
-        }
-        viewModelFacts.fetchData(vc: self) { (isSuccess) in
-            if isSuccess{
-                DispatchQueue.main.async { // Using GCD to run UI thread concurrantly
-                    self.title = self.viewModelFacts.title
-                    self.tblView.reloadData()
-                }
-            }
+    func setUpValues(){
+        self.showSpinner(onView: self.view)
+        DispatchQueue.global(qos: .background).async {
+            print("This is run on the background queue")
+            self.viewModelFacts.fetchData(vc: self) { (isSuccess) in
+               if isSuccess{
+                   DispatchQueue.main.async { // Using GCD to run UI thread concurrantly
+                    print("This is run on the main queue, after the previous code in outer block")
+
+                       self.title = self.viewModelFacts.title
+                       self.tblView.reloadData()
+                   }
+               }
+           }
+            
         }
     }
     
@@ -85,7 +91,6 @@ class MainViewController: UIViewController {
 
 // MARK: UITableViewDelegate && UITableViewDataSource
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModelFacts.factsDataList?.count ?? 0
     }
@@ -101,5 +106,4 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableView.automaticDimension
     }
 }
-
 
