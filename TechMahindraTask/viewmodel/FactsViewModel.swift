@@ -2,9 +2,8 @@
 //  FactsViewModel.swift
 //  TechMahindraTask
 //
-//  Created by VijayaBhaskar on 18/07/20.
+//Created by Venkatesh on 18/07/20.
 //  Copyright © 2020 Venkatesh. All rights reserved.
-//
 
 import UIKit
 

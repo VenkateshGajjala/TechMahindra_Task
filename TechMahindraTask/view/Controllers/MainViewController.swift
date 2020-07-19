@@ -2,7 +2,7 @@
 //  MainViewController.swift
 //  TechMahindraTask
 //
-//  Created by VijayaBhaskar on 18/07/20.
+//  Created by Venkatesh on 18/07/20.
 //  Copyright © 2020 Venkatesh. All rights reserved.
 //
 
@@ -18,6 +18,7 @@ class MainViewController: UIViewController {
     
     let viewModelFacts = FactsViewModel()
     var refreshControl: UIRefreshControl?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -66,9 +67,9 @@ class MainViewController: UIViewController {
         tblView.dataSource = self
         tblView.backgroundColor = UIColor.white
         tblView.register(detailsCell.self, forCellReuseIdentifier: TvIdentifierNames.detailsCell)
-        
     }
     
+    //MARK:- CALLING SERVICE FOR DATA
     func setUpValues(){
         self.showSpinner(onView: self.view)
         DispatchQueue.global(qos: .background).async {
@@ -77,16 +78,13 @@ class MainViewController: UIViewController {
                if isSuccess{
                    DispatchQueue.main.async { // Using GCD to run UI thread concurrantly
                     print("This is run on the main queue, after the previous code in outer block")
-
                        self.title = self.viewModelFacts.title
                        self.tblView.reloadData()
                    }
                }
            }
-            
         }
     }
-    
 }
 
 // MARK: UITableViewDelegate && UITableViewDataSource
