@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+
+//--------EXTENSION FOR UIIMAGEVIEW------
 extension UIImageView {
     func downloaded(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit) {  // for swift 4.2 syntax just use ===> mode: UIView.ContentMode
         contentMode = mode

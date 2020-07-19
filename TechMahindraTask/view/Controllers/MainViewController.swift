@@ -18,6 +18,7 @@ class MainViewController: UIViewController {
     
     let viewModelFacts = FactsViewModel()
     var refreshControl: UIRefreshControl?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -69,6 +70,7 @@ class MainViewController: UIViewController {
         
     }
     
+    //MARK:- CALLING SERIVE
     func setUpValues(){
         self.showSpinner(onView: self.view)
         DispatchQueue.global(qos: .background).async {
@@ -86,10 +88,9 @@ class MainViewController: UIViewController {
             
         }
     }
-    
 }
 
-// MARK: UITableViewDelegate && UITableViewDataSource
+// MARK: UITableViewDelegate && UITableViewDataSource METHODS
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModelFacts.factsDataList?.count ?? 0

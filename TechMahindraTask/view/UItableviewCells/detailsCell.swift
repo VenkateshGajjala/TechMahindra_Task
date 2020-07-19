@@ -18,6 +18,8 @@ class detailsCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         setupViews()
     }
+    
+    //------SETTING VALUES TO UITABLEVIEW CELL ELEMENTS
     var factDetailsDict: Rows? = nil {
         didSet{
             titleLbl.text = factDetailsDict?.title ?? ""
@@ -77,37 +79,38 @@ class detailsCell: UITableViewCell {
     func setupViews(){
         let padding: CGFloat = 5
         let imageWidth:CGFloat = 100
+        
+        //CELL HEADER VIEW
         contentView.addSubview(cellHeaderView)
         cellHeaderView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding).isActive = true
         cellHeaderView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding).isActive = true
         cellHeaderView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding).isActive = true
         cellHeaderView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding).isActive = true
         
-        //Image view
+        //IMAGEVIEW
         cellHeaderView.addSubview(imageVw)
         imageVw.leadingAnchor.constraint(equalTo: cellHeaderView.leadingAnchor, constant:padding).isActive = true
         imageVw.topAnchor.constraint(equalTo: cellHeaderView.topAnchor, constant:padding).isActive = true
         imageVw.widthAnchor.constraint(equalToConstant: imageWidth).isActive = true
         imageVw.heightAnchor.constraint(equalToConstant: imageWidth).isActive = true
-//        imageVw.bottomAnchor.constraint(equalTo: cellHeaderView.bottomAnchor, constant: -padding).isActive = true
         imageVw.bottomAnchor.constraint(lessThanOrEqualTo: cellHeaderView.bottomAnchor, constant: -20).isActive = true
         imageVw.contentMode = .scaleAspectFill
         imageVw.layer.cornerRadius = 5
         imageVw.layer.masksToBounds = true
-//        //TITLE LABEL
+        
+        //TITLE LABEL
         cellHeaderView.addSubview(titleLbl)
         titleLbl.leadingAnchor.constraint(equalTo: imageVw.trailingAnchor, constant:10).isActive = true
         titleLbl.topAnchor.constraint(equalTo: imageVw.topAnchor, constant: 0).isActive = true
         titleLbl.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -10).isActive = true
         titleLbl.translatesAutoresizingMaskIntoConstraints = false
-//        //DESCRIPTION LABEL
+        
+        //DESCRIPTION LABEL
         cellHeaderView.addSubview(descriptionLbl)
         descriptionLbl.leadingAnchor.constraint(equalTo: titleLbl.leadingAnchor, constant:0).isActive = true
         descriptionLbl.topAnchor.constraint(equalTo: titleLbl.bottomAnchor, constant: padding).isActive = true
         descriptionLbl.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
         descriptionLbl.translatesAutoresizingMaskIntoConstraints = false
-//        descriptionLbl.bottomAnchor.constraint(equalTo: imageVw.bottomAnchor, constant: 0).isActive = true
-        
         descriptionLbl.bottomAnchor.constraint(lessThanOrEqualTo: cellHeaderView.bottomAnchor, constant: -20).isActive = true
 
     }
